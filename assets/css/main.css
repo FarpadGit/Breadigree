@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "Bakerhouse";
+    src: local("Bakerhouse"), url("../BakerhouseBase.otf");
+}
+
+@font-face {
+    font-family: "Bakerhouse Full";
+    src: local("Bakerhouse"), url("../BakerhouseFull.otf");
+}
+
+@font-face {
+    font-family: "Grenda";
+    src: local("Grenda"), url("../Grenda.otf");
+}
+
+@layer components {
+    .text-heading {
+        @apply max-sm:text-2xl sm:text-[24px] md:text-[34px] lg:text-[54px] !important;
+    }
+
+    .text-heading-sm {
+        @apply max-sm:text-xl sm:text-[20px] md:text-[34px] lg:text-[44px] !important;
+    }
+}
+
+:root {
+    --font-bakerhouse: "Bakerhouse", sans-serif;
+    --font-bakerhouse-full: "Bakerhouse Full", "Bakerhouse", sans-serif;
+    --font-grenda: "Grenda", sans-serif;
+    --color-background: #f7ecdd;
+    --color-primary: #e64225;
+    --color-secondary: #f4c88b;
+    --color-foreground-light: #f7ecdd;
+    --color-foreground-accent: #e66c57;
+    --color-link-active: var(--color-secondary);
+    --animate-zoom-in: zoom-in 0.25s ease forwards;
+
+    font-family: "Grenda";
+    background-color: var(--color-background);
+}
+
+.router-link-active {
+    color: var(--color-link-active);
+}
+
+@keyframes zoom-in {
+    from {
+        opacity: 0;
+        scale: 0.9;
+    }
+
+    to {
+        opacity: 1;
+        scale: 1;
+    }
+}

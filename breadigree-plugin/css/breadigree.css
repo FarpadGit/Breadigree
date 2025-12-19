@@ -1,0 +1,35 @@
+input#slug_field {
+    width: 25%;
+}
+
+input#price_field,
+input#featured_field {
+    /* Firefox */
+    -moz-appearance: textfield;
+
+    /* Chrome, Safari, Edge, Opera */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+.gallery-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.gallery {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    align-items: center;
+    gap: 1rem;
+
+    .empty-message {
+        grid-column: 1 / -1;
+        text-align: center;
+    }
+}
