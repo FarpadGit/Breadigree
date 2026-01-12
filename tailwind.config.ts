@@ -21,6 +21,7 @@ module.exports = {
       },
       animation: {
         "zoom-in": "var(--animate-zoom-in)",
+        "fade-in": "var(--animate-fade-in)",
       },
     },
   },

@@ -38,6 +38,7 @@
     --color-foreground-accent: #e66c57;
     --color-link-active: var(--color-secondary);
     --animate-zoom-in: zoom-in 0.25s ease forwards;
+    --animate-fade-in: fade-in 1s ease forwards;
 
     font-family: "Grenda";
     background-color: var(--color-background);
@@ -56,5 +57,15 @@
     to {
         opacity: 1;
         scale: 1;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
     }
 }

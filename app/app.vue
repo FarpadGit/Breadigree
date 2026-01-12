@@ -12,9 +12,9 @@
         :class="{'opacity-100': loading}"
        />
     </div>
-     <NuxtLayout>
+    <NuxtLayout>
       <NuxtPage />
-     </NuxtLayout>
+    </NuxtLayout>
   </div>
 </template>
 
@@ -30,21 +30,8 @@
 </script>
 
 <style scoped>
-  .animate-fade-in {
-    animation: fade-in 1s ease forwards;
-  }
-  
   #loading-img {
     animation-duration: 1s;
     animation-delay: 1s;
-  }
-
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
   }
 </style>

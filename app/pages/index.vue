@@ -40,18 +40,38 @@
         <h3 class="text-heading font-bakerhouse text-center text-foreground-light pt-12 pb-16">Kiemelt Ajánlataink</h3>
         <div class="mx-12 lg:mx-24 pb-20">
             <Carousel :ref="carouselRef" v-bind="carouselConfig">
-                <Slide v-for="product in featured" :key="product.slug">
-                    <div class="carousel__item w-full"><ProductModal :product="product" text-align="left" text-color="light" /></div>
-                </Slide>
-                <template #addons>
+                <template v-if="featuredStatus === 'pending'">
+                    <Slide v-for="i in 3" :key="i">
+                        <div class="carousel__item w-full"><SkeletonCard type="product" /></div>
+                    </Slide>
+                </template>
+                <template v-else>
+                    <Slide v-for="product in featured" :key="product.slug">
+                        <div class="carousel__item w-full"><ProductModal :product="product" text-align="left" text-color="light" /></div>
+                    </Slide>
+                </template>
+                <template #addons v-if="featuredStatus === 'success'">
                     <Pagination />
                     <Navigation />
                 </template>
             </Carousel>
         </div>
-        <div v-if="categories.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-[240px] md:auto-rows-[500px]">
+        <div v-if="categoriesStatus === 'pending'" class="flex justify-center items-center p-16">
+            <nuxt-img
+                src="/logo.png" 
+                width="661" 
+                height="596" 
+                fit="contain" 
+                class="w-1/4 h-fit object-contain animate-pulse"
+            />
+        </div>
+        <div v-else-if="categories.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-[240px] md:auto-rows-[500px]">
             <h3 class="flex justify-center items-center max-sm:text-center sm:justify-start sm:items-start text-[38px] font-bold text-foreground-light pb-8 sm:pl-8">Keress igényeidnek megfelelően</h3>
-            <NuxtLink v-for="category in categories" :href="`/collections/${category.slug}`" class="relative flex justify-center items-center overflow-hidden group">
+            <NuxtLink 
+                v-for="category in categories" :key="category.id" 
+                :href="`/collections/${category.slug}`" 
+                class="relative flex justify-center items-center overflow-hidden group"
+            >
                 <span class="absolute text-[38px] font-bakerhouse text-foreground-light text-center group-hover:opacity-0 transition-opacity duration-500 z-10">{{ category.name }}</span>
                 <img :src="category.image" alt="" class="w-full h-full brightness-50 group-hover:scale-110 group-hover:brightness-100 select-none object-cover transition-all duration-500" draggable="false" />
             </NuxtLink>
@@ -95,7 +115,14 @@
             class="hidden sm:block absolute w-96 rotate-45 -left-24 -top-40 opacity-10"
         />
         <div class="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 p-8 z-10">
-            <GalleryModal 
+            <SkeletonCard 
+                v-if="galleryImagesStatus === 'pending'" 
+                v-for="i in 12" :key="i"
+                type="gallery" 
+    
+            />
+            <GalleryModal
+                v-else
                 v-for="(galleryImage, index) in galleryImages" :key="galleryImage" 
                 :gallery="galleryImages"
                 :image="galleryImage" 
@@ -110,11 +137,20 @@
         class="w-full h-full object-cover"
     />
     <section class="grid grid-cols-1 md:grid-cols-2 gap-4 min-h-[600px] p-8">
-        <ArticleCard v-if="articles.length > 0" :article="articles[0]!" />
-        <div :class="`grid ${articles.length > 2 ? 'grid-rows-2' : 'grid-rows-1'} gap-4 h-full`">
-            <ArticleCard v-if="articles.length > 1" :article="articles[1]!" />
-            <ArticleCard v-if="articles.length > 2" :article="articles[2]!" />
-        </div>
+        <template v-if="articlesStatus === 'pending'">
+            <SkeletonCard type="article" />
+            <div :class="`grid grid-rows-2 gap-4 h-full`">
+                <SkeletonCard type="article" />
+                <SkeletonCard type="article" />
+            </div>
+        </template>
+        <template v-else>
+            <ArticleCard v-if="articles.length > 0" :article="articles[0]!" />
+            <div :class="`grid ${articles.length > 2 ? 'grid-rows-2' : 'grid-rows-1'} gap-4 h-full`">
+                <ArticleCard v-if="articles.length > 1" :article="articles[1]!" />
+                <ArticleCard v-if="articles.length > 2" :article="articles[2]!" />
+            </div>
+        </template>
     </section>
 </template>
 
@@ -144,28 +180,28 @@
         }
     }
 
-    const categoryResponse = await useFetch<categoryType[]>("/api/categories");
-    const categories = categoryResponse.data.value || [];
-    const featuredResponse = await useFetch<productType[]>("/api/products/featured");
-    const featured = featuredResponse.data.value || [];
-    const galleryResponse = await useFetch<string[]>("/api/gallery");
-    const galleryImages = galleryResponse.data.value || [];
-    const articlesResponse = await useFetch<serverArticleType[]>("/api/articles");
-    const articles = toArticles(articlesResponse.data.value || []);
+    const { status: categoriesStatus, data: categoryData, error: categoryError } = await useLazyFetch<categoryType[]>("/api/categories");
+    const categories = computed(() => categoryData.value || []);
+    const { status: featuredStatus, data: featuredData, error: fearuredError } = await useLazyFetch<productType[]>("/api/products/featured");
+    const featured = computed(() => featuredData.value || []);
+    const { status: galleryImagesStatus, data: galleryData, error: galleryError } = await useLazyFetch<string[]>("/api/gallery");
+    const galleryImages = computed(() => galleryData.value || []);
+    const { status: articlesStatus, data: articleData, error: articleError } = await useLazyFetch<serverArticleType[]>("/api/articles");
+    const articles = computed(() => toArticles(articleData.value || []));
+    
+    const error = categoryError.value || fearuredError.value || galleryError.value || articleError.value;
+    if(error?.statusCode === 500) throw error;
     
     // shinanigan properties to make the last item in the categories grid fill up the rest of the row, regardless of its position
     // based on breakpoints and knowing when will it be 1/2/3/4 columns wide, as well as grid item count
     // (also the % operator in JS is a remainder operator, not modulo, so I also had to invent that)
     const mod = (a: number, b: number) => ((a % b) + b) % b;
-    const gridSpans = [
+    const gridSpans = computed(() => [
         {"--s1": `span 1`},
-        {"--s2": `span ${1 + mod(-(categories.length + 2), 2)}`},
-        {"--s3": `span ${1 + mod(-(categories.length + 2), 3)}`},
-        {"--s4": `span ${1 + mod(-(categories.length + 2), 4)}`}
-    ];
-
-    const error = categoryResponse.error.value || featuredResponse.error.value || galleryResponse.error.value;
-    if(error?.statusCode === 500) throw error;
+        {"--s2": `span ${1 + mod(-(categories.value.length + 2), 2)}`},
+        {"--s3": `span ${1 + mod(-(categories.value.length + 2), 3)}`},
+        {"--s4": `span ${1 + mod(-(categories.value.length + 2), 4)}`}
+    ]);
 </script>
 
 <style scoped>
