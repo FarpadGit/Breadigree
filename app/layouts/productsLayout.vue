@@ -18,10 +18,11 @@
     const { image: imageProp } = defineProps<{image?: string}>();
     const imageURL = useState("categoryImage", () => imageProp);
     
-    const { data } = await useLazyFetch<categoryType[]>("/api/categories");
-    const categories = useState("categories", () => data.value);
+    const { status, data } = await useLazyFetch<categoryType[]>("/api/categories");
+    const categories = useState<categoryType[] | undefined>("categories", () => undefined);
 
     watchEffect(() => {
         if(imageProp !== undefined) imageURL.value = imageProp;
+        if(status.value === 'success' && categories.value == undefined) categories.value = data.value;
     });
 </script>
