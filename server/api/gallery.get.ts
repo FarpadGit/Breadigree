@@ -1,4 +1,4 @@
-import { fetchGallery, fetchImages } from "../utils/fetchData";
+import { fetchGallery, fetchImages } from "~~/server/utils/fetchData";
 
 export default defineEventHandler(async (event) => {
   try {

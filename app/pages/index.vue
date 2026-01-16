@@ -1,5 +1,5 @@
 ﻿<template>
-    <section class="font-bakerhouse">
+    <section id="hero" class="font-bakerhouse">
         <nuxt-img 
             src="/hero.jpg" 
             width="2500"
@@ -36,7 +36,7 @@
             class="w-full h-[33vw] object-cover object-bottom mt-[10vw] sm:mt-12"
         />
     </div>
-    <section class="bg-primary">
+    <section id="featured" class="bg-primary">
         <h3 class="text-heading font-bakerhouse text-center text-foreground-light pt-12 pb-16">Kiemelt Ajánlataink</h3>
         <div class="mx-12 lg:mx-24 pb-20">
             <Carousel :ref="carouselRef" v-bind="carouselConfig">
@@ -85,7 +85,7 @@
             </StyledNav>
         </div>
     </section>
-    <section class="relative h-[530px] sm:h-[700px] flex flex-col justify-center items-center">
+    <section id="about" class="relative h-[530px] sm:h-[700px] flex flex-col justify-center items-center">
         <nuxt-img src="/blob_1.png" width="150" class="absolute top-[20%] left-[20%] w-[75px] sm:w-[150px]"/>
         <nuxt-img src="/blob_2.png" width="100" class="absolute top-[10%] left-[40%] w-[50px] sm:w-[100px]"/>
         <nuxt-img src="/blob_3.png" width="100" class="absolute top-[20%] left-[60%] w-[50px] sm:w-[100px]"/>
@@ -106,7 +106,7 @@
         height="2500"
         class="w-full h-[30vw] object-cover object-bottom"
     />
-    <section class="relative bg-primary">
+    <section id="gallery" class="relative bg-primary">
         <h3 class="text-heading font-bakerhouse text-center text-foreground-light pb-8">Galéria</h3>
         <nuxt-img 
             src="decor.png"
@@ -136,7 +136,7 @@
         height="150"
         class="w-full h-full object-cover"
     />
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-4 min-h-[600px] p-8">
+    <section id="articles" class="grid grid-cols-1 md:grid-cols-2 gap-4 min-h-[600px] p-8">
         <template v-if="articlesStatus === 'pending'">
             <SkeletonCard type="article" />
             <div :class="`grid grid-rows-2 gap-4 h-full`">

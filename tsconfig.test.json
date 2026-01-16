@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@app/*": ["./app/*"],
+      "@test/*": ["./test/*"]
+    },
+    "lib": ["ES2015", "DOM"],
+    "resolveJsonModule": true,
+    "esModuleInterop": true
+  }
+}

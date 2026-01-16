@@ -1,9 +1,9 @@
-import { decodeWPChars, toProduct } from "../utils/convert";
+import { decodeWPChars, toProduct } from "~~/server/utils/convert";
 import {
   fetchCategories,
   fetchImages,
   fetchProducts,
-} from "../utils/fetchData";
+} from "~~/server/utils/fetchData";
 
 export default defineEventHandler(async (event) => {
   try {

@@ -1,5 +1,5 @@
-import { toArticle } from "../utils/convert";
-import { fetchImages, fetchPosts } from "../utils/fetchData";
+import { toArticle } from "~~/server/utils/convert";
+import { fetchImages, fetchPosts } from "~~/server/utils/fetchData";
 
 export default defineEventHandler(async (event) => {
   try {

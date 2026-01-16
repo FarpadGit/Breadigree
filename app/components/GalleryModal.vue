@@ -9,9 +9,9 @@
         @click="showModal = true"
     />
     <Teleport to="body">
-        <div v-if="showModal" class="fixed top-0 left-0 w-screen h-screen bg-black/85 flex justify-center items-center z-50" @click="closeModal()">
+        <div v-if="showModal" id="gallery-modal" class="fixed top-0 left-0 w-screen h-screen bg-black/85 flex justify-center items-center z-50" @click="closeModal()">
             <div class="fixed w-[90vw] h-[90vh] bg-transparent flex flex-col rounded-md overflow-hidden animate-zoom-in" @click.stop>
-                <button class="absolute top-5 right-5 w-10 h-10 rounded-full z-10" @click="closeModal()" autofocus>
+                <button id="close-btn" class="absolute top-5 right-5 w-10 h-10 rounded-full z-10" @click="closeModal()" autofocus>
                     <Icon name="close" :size="40" class="text-foreground-accent" />
                 </button>
                 <Carousel id="gallery" v-bind="galleryConfig" v-model="currentSlide">

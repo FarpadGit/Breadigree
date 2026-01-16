@@ -4,6 +4,7 @@ import {
   fetchImage,
   fetchImages,
 } from "~~/server/utils/fetchData";
+import { toProduct, toCategory } from "~~/server/utils/convert";
 
 export default defineEventHandler(async (event) => {
   try {

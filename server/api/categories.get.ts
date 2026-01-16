@@ -1,5 +1,5 @@
-import { toCategory } from "../utils/convert";
-import { fetchImages, fetchCategories } from "../utils/fetchData";
+import { toCategory } from "~~/server/utils/convert";
+import { fetchImages, fetchCategories } from "~~/server/utils/fetchData";
 
 export default defineEventHandler(async (event) => {
   try {

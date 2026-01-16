@@ -1,7 +1,9 @@
 <template>
     <NuxtLayout name="products-layout" :image="collection?.category.image">
         <div class="bg-background">
-            <h1 class="text-center text-heading py-20 underline underline-offset-[16px]">{{ status === 'pending' ? 'Termékek betöltése...' : collection?.category.name }}</h1>
+            <h1 class="text-center text-heading py-20 underline underline-offset-[16px]" :data-testid="status === 'pending' ? 'loading-text' : undefined">
+                {{ status === 'pending' ? 'Termékek betöltése...' : collection?.category.name }}
+            </h1>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 justify-between max-w-[450px] sm:max-w-[1350px] mx-auto pb-10">
                 <SkeletonCard
                     v-if="status === 'pending'"

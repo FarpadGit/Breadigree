@@ -17,9 +17,9 @@
         </div>
     </div>
     <Teleport to="body">
-        <div v-if="showModal" class="fixed top-0 left-0 w-screen h-screen bg-black/50 flex justify-center items-center z-50" @click="showModal = false">
+        <div v-if="showModal" id="product-modal" class="fixed top-0 left-0 w-screen h-screen bg-black/50 flex justify-center items-center z-50" @click="showModal = false">
             <div class="fixed w-screen h-screen sm:w-[75vw] sm:h-[75vh] bg-background flex flex-col md:flex-row rounded-md overflow-hidden animate-zoom-in" @click.stop>
-                <button class="absolute top-5 right-5 flex justify-center items-center w-10 h-10 rounded-full" @click="showModal = false" autofocus>
+                <button id="close-btn" class="absolute top-5 right-5 flex justify-center items-center w-10 h-10 rounded-full" @click="showModal = false" autofocus>
                     <Icon name="close" :size="40" class="text-foreground-accent" />
                 </button>
                 <div class="max-md:h-2/3 md:w-2/3 bg-foreground-accent bg-[url(/product_wallpaper.jpg)] bg-center bg-cover md:bg-contain bg-blend-overlay">
