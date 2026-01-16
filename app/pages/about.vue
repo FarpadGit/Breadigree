@@ -1,6 +1,6 @@
 ﻿<template>
     <section class="fixed-bg-section w-full h-[110vh] bg-[url('/about_1.jpg')] px-4 md:pl-[10%] flex flex-col justify-center max-md:items-center">
-        <h1 class="text-heading-about">"Kévműves"</h1>
+        <h1 class="text-heading-about">"Kézműves"</h1>
         <p class="text-heading-sub md:max-w-72">Ahogy a nagyvilágban értik...</p>
     </section>
     <section class="w-full text-paragraph text-[#461e00] bg-background flex justify-center items-center">
